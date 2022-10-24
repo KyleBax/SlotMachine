@@ -13,6 +13,7 @@
                 Console.WriteLine("How much would you like to bet?");
                 int bettingAmount = Convert.ToInt32(Console.ReadLine());
                 int winModifier = 1;
+
                 while (bettingAmount <= 0)
                 {
                     Console.WriteLine("You must place a valid bet");
@@ -24,6 +25,7 @@
                     Console.WriteLine("You have bet all your remainning credit");
                     bettingAmount = totalCredits;
                 }
+
                 for (int i = 0; i < 3; i++)
                 {
                     int ranNum = GetRandomNumber();
@@ -40,6 +42,7 @@
                     Console.Write(ranNum + " ");
                 }
                 Console.WriteLine();
+
                 if (ranNumOne == 7)
                 {
                     totalCredits = Win(bettingAmount, totalCredits, winModifier);
