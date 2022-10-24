@@ -4,12 +4,12 @@
     {
         static void Main(string[] args)
         {
-            int totalAmount = 100;
+            int totalCredits = 100;
 
-            while (totalAmount > 0)
+            while (totalCredits > 0)
             {
                 Console.WriteLine("available balance");
-                Console.WriteLine(totalAmount);
+                Console.WriteLine(totalCredits);
                 Console.WriteLine("How much would you like to bet?");
                 int bettingAmount = Convert.ToInt32(Console.ReadLine());
                 while (bettingAmount <= 0)
@@ -18,10 +18,10 @@
                     Console.WriteLine("How much would you like to bet?");
                     bettingAmount = Convert.ToInt32(Console.ReadLine());
                 }
-                if (bettingAmount > totalAmount)
+                if (bettingAmount > totalCredits)
                 {
                     Console.WriteLine("You have bet all your remainning credit");
-                    bettingAmount = totalAmount;
+                    bettingAmount = totalCredits;
                 }
                 int ranNumOne = GetRandomNumber();
                 int ranNumTwo = GetRandomNumber();
@@ -30,23 +30,23 @@
                 if (ranNumOne == ranNumTwo || ranNumTwo == ranNumThree)
                 {
                     //TODO remove magic number win mmodifiers
-                    totalAmount = Win(bettingAmount, totalAmount, 1);
+                    totalCredits = Win(bettingAmount, totalCredits, 1);
                 }
                 else if (ranNumOne == ranNumTwo && ranNumTwo == ranNumThree)
                 {
                     if (ranNumOne == 7)
                     {
-                        totalAmount = Win(bettingAmount, totalAmount, 7);
+                        totalCredits = Win(bettingAmount, totalCredits, 7);
                     }
                     else
                     {
-                        totalAmount = Win(bettingAmount, totalAmount, 2);
+                        totalCredits = Win(bettingAmount, totalCredits, 2);
                     }
                 }
                 else
                 {
                     Console.WriteLine("You Lose!!!");
-                    totalAmount -= bettingAmount;
+                    totalCredits -= bettingAmount;
                 }
             }
             Console.WriteLine("looks like you ran out of credit!!");
@@ -57,16 +57,16 @@
             int ranNum = random.Next(0, 8);
             return ranNum;
         }
-        public static int Win(int bettingAmount, int totalAmount, int winModifier)
+        public static int Win(int bettingAmount, int totalCredits, int winModifier)
         {
             Console.WriteLine("Winner!!!!");
-            totalAmount -= bettingAmount;
+            totalCredits -= bettingAmount;
             int winningAmount = bettingAmount * winModifier;
             Console.WriteLine("You win " + winningAmount + " credits");
-            Console.WriteLine(totalAmount);
-            totalAmount += winningAmount;
-            Console.WriteLine(totalAmount);
-            return totalAmount;
+            Console.WriteLine(totalCredits);
+            totalCredits += winningAmount;
+            Console.WriteLine("You have " + totalCredits + " credits");
+            return totalCredits;
         }
     }
 }
