@@ -4,8 +4,12 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the lucky 7s");
+            Random random = new();
             int totalCredits = 100;
+            int winningNumber = 7;
+
+            Console.WriteLine("Welcome to the lucky 7s");
+
 
             while (totalCredits > 0)
             {
@@ -28,22 +32,19 @@
 
                 for (int i = 0; i < 3; i++)
                 {
-                    int ranNum = GetRandomNumber();
-                    Console.Write(ranNum + " ");
+                    Console.Write(GetRandomNumber(random) + " ");
                 }
                 Console.WriteLine();
-                int ranNumOne = GetRandomNumber();
-                int ranNumTwo = GetRandomNumber();
-                int ranNumThree = GetRandomNumber();
+                int ranNumOne = GetRandomNumber(random);
+                int ranNumTwo = GetRandomNumber(random);
+                int ranNumThree = GetRandomNumber(random);
                 Console.WriteLine(ranNumOne + " " + ranNumTwo + " " + ranNumThree);
                 for (int i = 0; i < 3; i++)
                 {
-                    int ranNum = GetRandomNumber();
-                    Console.Write(ranNum + " ");
+                    Console.Write(GetRandomNumber(random) + " ");
                 }
                 Console.WriteLine();
-
-                if (ranNumOne == 7)
+                if (winningNumber == ranNumOne)
                 {
                     totalCredits = Win(bettingAmount, totalCredits, winModifier);
                 }
@@ -81,9 +82,8 @@
             Console.WriteLine("looks like you ran out of credits!!");
         }
 
-        public static int GetRandomNumber()
+        public static int GetRandomNumber(Random random)
         {
-            Random random = new();
             int ranNum = random.Next(0, 8);
             return ranNum;
         }
