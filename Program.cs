@@ -10,9 +10,9 @@
 
             Console.WriteLine("Welcome to the lucky 7s");
 
-
             while (totalCredits > 0)
             {
+
                 Console.WriteLine("available credits: " + totalCredits);
                 Console.WriteLine("How much would you like to bet?");
                 int bettingAmount = Convert.ToInt32(Console.ReadLine());
@@ -24,52 +24,48 @@
                     Console.WriteLine("How much would you like to bet?");
                     bettingAmount = Convert.ToInt32(Console.ReadLine());
                 }
+
                 if (bettingAmount > totalCredits)
                 {
                     Console.WriteLine("You have bet all your remainning credit");
                     bettingAmount = totalCredits;
                 }
-
+                //TODO make it possible to select how many lines you play & make it possible to play diagonal lines. make the machine check each line that you choose to play
+                int[,] array = new int[3, 3];
                 for (int i = 0; i < 3; i++)
                 {
-                    Console.Write(GetRandomNumber(random) + " ");
-                }
-                Console.WriteLine();
-                int ranNumOne = GetRandomNumber(random);
-                int ranNumTwo = GetRandomNumber(random);
-                int ranNumThree = GetRandomNumber(random);
-                Console.WriteLine(ranNumOne + " " + ranNumTwo + " " + ranNumThree);
-                for (int i = 0; i < 3; i++)
-                {
-                    Console.Write(GetRandomNumber(random) + " ");
-                }
-                Console.WriteLine();
-                if (winningNumber == ranNumOne)
-                {
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                }
-                if (ranNumTwo == 7)
-                {
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                }
-                if (ranNumThree == 7)
-                {
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                }
-                if (ranNumOne == ranNumTwo || ranNumTwo == ranNumThree)
-                {
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                }
-                else if (ranNumOne == ranNumTwo && ranNumTwo == ranNumThree)
-                {
-                    if (ranNumOne == 7)
+                    for (int j = 0; j < 3; j++)
                     {
-                        winModifier = 7;
+                        array[i, j] = GetRandomNumber(random);
+                        Console.Write(array[i, j] + " ");
+                    }
+                    Console.WriteLine();
+                }
+                foreach (int i in array)
+                {
+                    if(i == winningNumber)
+                    {
+                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    }
+                }
+
+
+
+                if (array[0,0] == array[0,1] || array[0,1] == array[0,2])
+                {
+                    winModifier = 2;
+                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                }
+                if (array[0, 0] == array[0, 1] && array[0, 1] == array[0, 2])
+                {
+                    if (array[0, 0] == winningNumber)
+                    {
+                        winModifier = winningNumber;
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
                     }
                     else
                     {
-                        winModifier = 2;
+                        winModifier = 3;
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
                     }
                 }
