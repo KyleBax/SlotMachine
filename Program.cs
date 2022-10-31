@@ -4,61 +4,97 @@
     {
         static void Main(string[] args)
         {
-            Random random = new();
+            bool TEST_MODE = true;
+
+            Random random;
+
+            if (TEST_MODE)
+                random = new(5);
+            else
+                random = new();
+
             int totalCredits = 100;
             int winningNumber = 7;
+            int[,] ranNums = new int[3, 3];
 
             Console.WriteLine("Welcome to the lucky 7s");
 
             while (totalCredits > 0)
             {
-
                 Console.WriteLine("available credits: " + totalCredits);
-                Console.WriteLine("How much would you like to bet?");
-                int bettingAmount = Convert.ToInt32(Console.ReadLine());
+                int bettingAmount = Input("How much would you like to bet?");
+
                 int winModifier = 1;
 
-                while (bettingAmount <= 0)
-                {
-                    Console.WriteLine("You must place a valid bet");
-                    Console.WriteLine("How much would you like to bet?");
-                    bettingAmount = Convert.ToInt32(Console.ReadLine());
-                }
-
+                //makes sure you're betting a valid amount
                 if (bettingAmount > totalCredits)
                 {
-                    Console.WriteLine("You have bet all your remainning credit");
+                    Console.WriteLine("You have bet all your remainning credits");
                     bettingAmount = totalCredits;
                 }
-                //TODO make it possible to select how many lines you play & make it possible to play diagonal lines. make the machine check each line that you choose to play
-                int[,] array = new int[3, 3];
+
+
+
+                Console.WriteLine("How many lines would you like to bet?");
+                Console.WriteLine("1, 3, or 5");
+                int linesBet = Convert.ToInt32(Console.ReadLine());
+                while (linesBet <= 0 || linesBet == 2 || linesBet == 4 || linesBet >= 6)
+                {
+                    Console.WriteLine("How many lines you like to bet?");
+                    Console.WriteLine("1, 3, or 5");
+                    linesBet = Convert.ToInt32(Console.ReadLine());
+                }
+                totalCredits -= bettingAmount * linesBet;
+                int roundStartingCredits = totalCredits;
+
                 for (int i = 0; i < 3; i++)
                 {
                     for (int j = 0; j < 3; j++)
                     {
-                        array[i, j] = GetRandomNumber(random);
-                        Console.Write(array[i, j] + " ");
+                        ranNums[i, j] = random.Next(0, 8); ;
+                        Console.Write(ranNums[i, j] + " ");
                     }
                     Console.WriteLine();
                 }
-                foreach (int i in array)
+
+                if (linesBet == 1)
                 {
-                    if(i == winningNumber)
+                    if (ranNums[1, 0] == 7)
                     {
+                        winModifier = 1;
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
                     }
+                    if (ranNums[1, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[1, 2])
+                    {
+                        winModifier = 1;
+                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    }
+                    if (ranNums[1, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[1, 2])
+                    {
+                        if (ranNums[1, 0] == winningNumber)
+                        {
+                            winModifier = winningNumber;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                        else
+                        {
+                            winModifier = 3;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                    }
+                }
+                if (linesBet == 3)
+                {
+                    totalCredits = SevensCheck(ranNums, winningNumber, totalCredits, bettingAmount, winModifier);
+                }
+                if (linesBet == 5)
+                {
+                    totalCredits = SevensCheck(ranNums, winningNumber, totalCredits, bettingAmount, winModifier);
                 }
 
-
-
-                if (array[0,0] == array[0,1] || array[0,1] == array[0,2])
+                if (ranNums[1, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[1, 2])
                 {
-                    winModifier = 2;
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                }
-                if (array[0, 0] == array[0, 1] && array[0, 1] == array[0, 2])
-                {
-                    if (array[0, 0] == winningNumber)
+                    if (ranNums[1, 0] == winningNumber)
                     {
                         winModifier = winningNumber;
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
@@ -69,10 +105,14 @@
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
                     }
                 }
-                else
+                if (totalCredits < roundStartingCredits)
                 {
                     Console.WriteLine("You Lose!!!");
-                    totalCredits -= bettingAmount;
+                }
+                else
+                {
+                    int winningAmount = totalCredits - roundStartingCredits;
+                    WinText(winningAmount, roundStartingCredits, totalCredits);
                 }
             }
             Console.WriteLine("looks like you ran out of credits!!");
@@ -86,14 +126,48 @@
 
         public static int Win(int bettingAmount, int totalCredits, int winModifier)
         {
-            Console.WriteLine("Winner!!!!");
-            totalCredits -= bettingAmount;
-            int winningAmount = bettingAmount * winModifier;
-            Console.WriteLine("You win " + winningAmount + " credits");
-            Console.WriteLine(totalCredits);
-            totalCredits += winningAmount;
-            Console.WriteLine("You have " + totalCredits + " credits");
+            totalCredits += bettingAmount * winModifier;
             return totalCredits;
+        }
+
+        public static void WinText(int winningAmount, int roundStartingCredits, int totalCredits)
+        {
+            Console.WriteLine("Winner!!!!");
+            Console.WriteLine("You win " + winningAmount + " credits");
+            Console.WriteLine(roundStartingCredits);
+            Console.WriteLine("You have " + totalCredits + " credits");
+        }
+
+        public static int SevensCheck(int[,] ranNums, int winningNumber, int totalCredits, int bettingAmount, int winModifier)
+        {
+            foreach (int i in ranNums)
+            {
+                if (i == winningNumber)
+                {
+                    totalCredits += bettingAmount * winModifier;
+                }
+            }
+            return totalCredits;
+        }
+
+        public static int Input(string line)
+        {
+            Console.WriteLine(line);
+            int number = 0;
+            while (number <= 0)
+            {
+                string input = Console.ReadLine();
+                if (String.IsNullOrEmpty(input) || char.IsLetter(input, 0))
+                {
+                    continue;
+                }
+                else
+                {
+                    number = Convert.ToInt32(input);
+                }
+
+            }
+            return number;
         }
     }
 }
