@@ -22,28 +22,21 @@
             while (totalCredits > 0)
             {
                 Console.WriteLine("available credits: " + totalCredits);
-                int bettingAmount = Input("How much would you like to bet?");
-
                 int winModifier = 1;
 
-                //makes sure you're betting a valid amount
+                int bettingAmount = Input("How much would you like to bet?");
                 if (bettingAmount > totalCredits)
                 {
                     Console.WriteLine("You have bet all your remainning credits");
                     bettingAmount = totalCredits;
                 }
 
-
-
-                Console.WriteLine("How many lines would you like to bet?");
-                Console.WriteLine("1, 3, or 5");
-                int linesBet = Convert.ToInt32(Console.ReadLine());
+                int linesBet = 0;
                 while (linesBet <= 0 || linesBet == 2 || linesBet == 4 || linesBet >= 6)
                 {
-                    Console.WriteLine("How many lines you like to bet?");
-                    Console.WriteLine("1, 3, or 5");
-                    linesBet = Convert.ToInt32(Console.ReadLine());
+                    linesBet = Input("How many lines you like to bet?\n1, 3, or 5");
                 }
+
                 totalCredits -= bettingAmount * linesBet;
                 int roundStartingCredits = totalCredits;
 
@@ -116,12 +109,6 @@
                 }
             }
             Console.WriteLine("looks like you ran out of credits!!");
-        }
-
-        public static int GetRandomNumber(Random random)
-        {
-            int ranNum = random.Next(0, 8);
-            return ranNum;
         }
 
         public static int Win(int bettingAmount, int totalCredits, int winModifier)
