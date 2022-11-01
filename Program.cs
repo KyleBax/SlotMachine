@@ -49,6 +49,7 @@
                     }
                     Console.WriteLine();
                 }
+                //TODO make these into methods to reduce the lines used
                 //single central line
                 if (linesBet == 1)
                 {
@@ -67,35 +68,13 @@
                         winModifier = 1;
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
                     }
-                    if (ranNums[1, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[1, 2])
-                    {
-                        winModifier = 1;
-                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                    }
-                    if (ranNums[1, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[1, 2])
-                    {
-                        if (ranNums[1, 0] == winningNumber)
-                        {
-                            winModifier = winningNumber;
-                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                        }
-                        else
-                        {
-                            winModifier = 3;
-                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                        }
-                    }
+                    totalCredits = MiddleLineCheck(ranNums, totalCredits, bettingAmount, winningNumber);
                 }
                 //3 lines going from left to right
                 if (linesBet == 3)
                 {
                     totalCredits = SevensCheck(ranNums, winningNumber, totalCredits, bettingAmount, winModifier);
                     if (ranNums[0, 0] == ranNums[0, 1] || ranNums[0, 1] == ranNums[0, 2])
-                    {
-                        winModifier = 1;
-                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                    }
-                    if (ranNums[1, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[1, 2])
                     {
                         winModifier = 1;
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
@@ -108,19 +87,6 @@
                     if (ranNums[0, 0] == ranNums[0, 1] && ranNums[0, 1] == ranNums[0, 2])
                     {
                         if (ranNums[0, 0] == winningNumber)
-                        {
-                            winModifier = winningNumber;
-                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                        }
-                        else
-                        {
-                            winModifier = 3;
-                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                        }
-                    }
-                    if (ranNums[1, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[1, 2])
-                    {
-                        if (ranNums[1, 0] == winningNumber)
                         {
                             winModifier = winningNumber;
                             totalCredits = Win(bettingAmount, totalCredits, winModifier);
@@ -144,17 +110,13 @@
                             totalCredits = Win(bettingAmount, totalCredits, winModifier);
                         }
                     }
+                    totalCredits = MiddleLineCheck(ranNums, totalCredits, bettingAmount, winningNumber);
                 }
                 //3 lines left to right and diagonals
                 if (linesBet == 5)
                 {
                     totalCredits = SevensCheck(ranNums, winningNumber, totalCredits, bettingAmount, winModifier);
                     if (ranNums[0, 0] == ranNums[0, 1] || ranNums[0, 1] == ranNums[0, 2])
-                    {
-                        winModifier = 1;
-                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                    }
-                    if (ranNums[1, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[1, 2])
                     {
                         winModifier = 1;
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
@@ -177,19 +139,6 @@
                     if (ranNums[0, 0] == ranNums[0, 1] && ranNums[0, 1] == ranNums[0, 2])
                     {
                         if (ranNums[0, 0] == winningNumber)
-                        {
-                            winModifier = winningNumber;
-                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                        }
-                        else
-                        {
-                            winModifier = 3;
-                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                        }
-                    }
-                    if (ranNums[1, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[1, 2])
-                    {
-                        if (ranNums[1, 0] == winningNumber)
                         {
                             winModifier = winningNumber;
                             totalCredits = Win(bettingAmount, totalCredits, winModifier);
@@ -239,6 +188,7 @@
                             totalCredits = Win(bettingAmount, totalCredits, winModifier);
                         }
                     }
+                    totalCredits = MiddleLineCheck(ranNums, totalCredits, bettingAmount, winningNumber);
                 }
 
                 if (totalCredits <= roundStartingCredits)
@@ -254,20 +204,33 @@
             Console.WriteLine("looks like you ran out of credits!!");
         }
 
+        public static int MiddleLineCheck(int[,] ranNums, int totalCredits, int bettingAmount, int winningNumber)
+        {
+            int winModifier = 1;
+            if (ranNums[1, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[1, 2])
+            {
+                totalCredits = Win(bettingAmount, totalCredits, winModifier);
+            }
+            if (ranNums[1, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[1, 2])
+            {
+                if (ranNums[1, 0] == winningNumber)
+                {
+                    winModifier = 7;
+                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                }
+                else
+                {
+                    winModifier = 3;
+                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                }
+            }
+            return totalCredits;
+        }
         public static int Win(int bettingAmount, int totalCredits, int winModifier)
         {
             totalCredits += bettingAmount * winModifier;
             return totalCredits;
         }
-
-        public static void WinText(int winningAmount, int roundStartingCredits, int totalCredits)
-        {
-            Console.WriteLine("Winner!!!!");
-            Console.WriteLine("You win " + winningAmount + " credits");
-            Console.WriteLine(roundStartingCredits);
-            Console.WriteLine("You have " + totalCredits + " credits");
-        }
-
         public static int SevensCheck(int[,] ranNums, int winningNumber, int totalCredits, int bettingAmount, int winModifier)
         {
             foreach (int i in ranNums)
@@ -280,12 +243,19 @@
             return totalCredits;
         }
 
+        public static void WinText(int winningAmount, int roundStartingCredits, int totalCredits)
+        {
+            Console.WriteLine("Winner!!!!");
+            Console.WriteLine("You win " + winningAmount + " credits");
+            Console.WriteLine(roundStartingCredits);
+            Console.WriteLine("You have " + totalCredits + " credits");
+        }
         public static int Input(string line)
         {
-            Console.WriteLine(line);
             int number = 0;
             while (number <= 0)
             {
+                Console.WriteLine(line);
                 string input = Console.ReadLine();
                 if (String.IsNullOrEmpty(input) || char.IsLetter(input, 0))
                 {
