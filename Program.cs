@@ -49,10 +49,20 @@
                     }
                     Console.WriteLine();
                 }
-
+                //single central line
                 if (linesBet == 1)
                 {
                     if (ranNums[1, 0] == 7)
+                    {
+                        winModifier = 1;
+                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    }
+                    if (ranNums[1, 1] == 7)
+                    {
+                        winModifier = 1;
+                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    }
+                    if (ranNums[1, 2] == 7)
                     {
                         winModifier = 1;
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
@@ -76,29 +86,162 @@
                         }
                     }
                 }
+                //3 lines going from left to right
                 if (linesBet == 3)
                 {
                     totalCredits = SevensCheck(ranNums, winningNumber, totalCredits, bettingAmount, winModifier);
+                    if (ranNums[0, 0] == ranNums[0, 1] || ranNums[0, 1] == ranNums[0, 2])
+                    {
+                        winModifier = 1;
+                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    }
+                    if (ranNums[1, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[1, 2])
+                    {
+                        winModifier = 1;
+                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    }
+                    if (ranNums[2, 0] == ranNums[2, 1] || ranNums[2, 1] == ranNums[2, 2])
+                    {
+                        winModifier = 1;
+                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    }
+                    if (ranNums[0, 0] == ranNums[0, 1] && ranNums[0, 1] == ranNums[0, 2])
+                    {
+                        if (ranNums[0, 0] == winningNumber)
+                        {
+                            winModifier = winningNumber;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                        else
+                        {
+                            winModifier = 3;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                    }
+                    if (ranNums[1, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[1, 2])
+                    {
+                        if (ranNums[1, 0] == winningNumber)
+                        {
+                            winModifier = winningNumber;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                        else
+                        {
+                            winModifier = 3;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                    }
+                    if (ranNums[2, 0] == ranNums[2, 1] && ranNums[2, 1] == ranNums[2, 2])
+                    {
+                        if (ranNums[2, 0] == winningNumber)
+                        {
+                            winModifier = winningNumber;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                        else
+                        {
+                            winModifier = 3;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                    }
                 }
+                //3 lines left to right and diagonals
                 if (linesBet == 5)
                 {
                     totalCredits = SevensCheck(ranNums, winningNumber, totalCredits, bettingAmount, winModifier);
+                    if (ranNums[0, 0] == ranNums[0, 1] || ranNums[0, 1] == ranNums[0, 2])
+                    {
+                        winModifier = 1;
+                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    }
+                    if (ranNums[1, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[1, 2])
+                    {
+                        winModifier = 1;
+                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    }
+                    if (ranNums[2, 0] == ranNums[2, 1] || ranNums[2, 1] == ranNums[2, 2])
+                    {
+                        winModifier = 1;
+                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    }
+                    if (ranNums[0, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[2, 2])
+                    {
+                        winModifier = 1;
+                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    }
+                    if (ranNums[2, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[0, 2])
+                    {
+                        winModifier = 1;
+                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    }
+                    if (ranNums[0, 0] == ranNums[0, 1] && ranNums[0, 1] == ranNums[0, 2])
+                    {
+                        if (ranNums[0, 0] == winningNumber)
+                        {
+                            winModifier = winningNumber;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                        else
+                        {
+                            winModifier = 3;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                    }
+                    if (ranNums[1, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[1, 2])
+                    {
+                        if (ranNums[1, 0] == winningNumber)
+                        {
+                            winModifier = winningNumber;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                        else
+                        {
+                            winModifier = 3;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                    }
+                    if (ranNums[2, 0] == ranNums[2, 1] && ranNums[2, 1] == ranNums[2, 2])
+                    {
+                        if (ranNums[2, 0] == winningNumber)
+                        {
+                            winModifier = winningNumber;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                        else
+                        {
+                            winModifier = 3;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                    }
+                    if (ranNums[0, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[2, 2])
+                    {
+                        if (ranNums[0, 0] == winningNumber)
+                        {
+                            winModifier = winningNumber;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                        else
+                        {
+                            winModifier = 3;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                    }
+                    if (ranNums[2, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[0, 2])
+                    {
+                        if (ranNums[2, 0] == winningNumber)
+                        {
+                            winModifier = winningNumber;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                        else
+                        {
+                            winModifier = 3;
+                            totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                        }
+                    }
                 }
 
-                if (ranNums[1, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[1, 2])
-                {
-                    if (ranNums[1, 0] == winningNumber)
-                    {
-                        winModifier = winningNumber;
-                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                    }
-                    else
-                    {
-                        winModifier = 3;
-                        totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                    }
-                }
-                if (totalCredits < roundStartingCredits)
+                if (totalCredits <= roundStartingCredits)
                 {
                     Console.WriteLine("You Lose!!!");
                 }
