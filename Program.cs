@@ -234,13 +234,17 @@
             {
                 Console.WriteLine(line);
                 string input = Console.ReadLine();
-                if (String.IsNullOrEmpty(input) || char.IsLetter(input, 0))
+                if (String.IsNullOrEmpty(input))
                 {
                     continue;
                 }
-                else
+                if (input.All(Char.IsNumber))
                 {
                     number = Convert.ToInt32(input);
+                }
+                else
+                {
+                    continue;
                 }
             }
             return number;
