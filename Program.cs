@@ -7,11 +7,10 @@
         static readonly int BIG_WINS = 7;
         static readonly int WINNING_NUMBER = 7;
         static readonly int STARTING_CREDITS = 100;
+        static readonly bool TEST_MODE = true;
         static void Main(string[] args)
         {
-            bool TEST_MODE = true;
             Random random;
-
             if (TEST_MODE)
                 random = new(5);
             else
@@ -58,17 +57,14 @@
                 {
                     if (ranNums[1, 0] == WINNING_NUMBER)
                     {
-                        winModifier = SMALL_WINS;
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
                     }
                     if (ranNums[1, 1] == WINNING_NUMBER)
                     {
-                        winModifier = SMALL_WINS;
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
                     }
                     if (ranNums[1, 2] == WINNING_NUMBER)
                     {
-                        winModifier = SMALL_WINS;
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
                     }
                     totalCredits = MiddleLineCheck(ranNums, totalCredits, bettingAmount);
