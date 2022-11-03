@@ -30,7 +30,7 @@
 
                 while (linesBet <= 0 || linesBet == 2 || linesBet == 4 || linesBet >= 6)
                 {
-                    linesBet = Input("How many lines you like to bet?\n1, 3, or 5");
+                    linesBet = GetUserInput("How many lines you like to bet?\n1, 3, or 5");
                     if (linesBet > totalCredits)
                     {
                         Console.WriteLine("you don't have enough credits");
@@ -40,7 +40,7 @@
                 }
                 while (bettingAmount <= 0 || bettingAmount * linesBet > totalCredits)
                 {
-                    bettingAmount = Input("How much would you like to bet?");
+                    bettingAmount = GetUserInput("How much would you like to bet?");
                     if(bettingAmount * linesBet > totalCredits)
                     {
                         Console.WriteLine("you don't have enough credits");
@@ -238,7 +238,7 @@
             Console.WriteLine(roundStartingCredits);
             Console.WriteLine("You have " + totalCredits + " credits");
         }
-        public static int Input(string line)
+        public static int GetUserInput(string line)
         {
             int number = 0;
             while (number <= 0)
