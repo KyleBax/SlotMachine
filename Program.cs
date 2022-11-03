@@ -82,22 +82,22 @@
                     {
                         totalCredits = Win(bettingAmount, totalCredits, winModifier);
                     }
-                    totalCredits = MiddleLineCheck(ranNums, totalCredits, bettingAmount);
+                    totalCredits = CheckMiddleLine(ranNums, totalCredits, bettingAmount);
                 }
                 //3 lines going from left to right
                 if (linesBet == 3)
                 {
-                    totalCredits = SevensCheck(ranNums, totalCredits, bettingAmount);
-                    totalCredits = MiddleLineCheck(ranNums, totalCredits, bettingAmount);
-                    totalCredits = TopAndBottomLineCheck(ranNums, totalCredits, bettingAmount);
+                    totalCredits = CheckForSevens(ranNums, totalCredits, bettingAmount);
+                    totalCredits = CheckMiddleLine(ranNums, totalCredits, bettingAmount);
+                    totalCredits = CheckTopAndBottomLines(ranNums, totalCredits, bettingAmount);
                 }
                 //3 lines left to right and diagonals
                 if (linesBet == 5)
                 {
-                    totalCredits = SevensCheck(ranNums, totalCredits, bettingAmount);
-                    totalCredits = MiddleLineCheck(ranNums, totalCredits, bettingAmount);
-                    totalCredits = TopAndBottomLineCheck(ranNums, totalCredits, bettingAmount);
-                    totalCredits = DiagonalLineCheck(ranNums, totalCredits, bettingAmount);
+                    totalCredits = CheckForSevens(ranNums, totalCredits, bettingAmount);
+                    totalCredits = CheckMiddleLine(ranNums, totalCredits, bettingAmount);
+                    totalCredits = CheckTopAndBottomLines(ranNums, totalCredits, bettingAmount);
+                    totalCredits = CheckDiagonalLines(ranNums, totalCredits, bettingAmount);
                 }
                 if (totalCredits <= roundStartingCredits)
                 {
@@ -112,7 +112,7 @@
             Console.WriteLine("looks like you ran out of credits!!");
         }
 
-        public static int DiagonalLineCheck(int[,] ranNums, int totalCredits, int bettingAmount)
+        public static int CheckDiagonalLines(int[,] ranNums, int totalCredits, int bettingAmount)
         {
             int winModifier = SMALL_WINS;
             if (ranNums[0, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[2, 2])
@@ -152,7 +152,7 @@
             }
             return totalCredits;
         }
-        public static int TopAndBottomLineCheck(int[,] ranNums, int totalCredits, int bettingAmount)
+        public static int CheckTopAndBottomLines(int[,] ranNums, int totalCredits, int bettingAmount)
         {
             int winModifier = SMALL_WINS;
             if (ranNums[0, 0] == ranNums[0, 1] || ranNums[0, 1] == ranNums[0, 2])
@@ -192,7 +192,7 @@
             }
             return totalCredits;
         }
-        public static int MiddleLineCheck(int[,] ranNums, int totalCredits, int bettingAmount)
+        public static int CheckMiddleLine(int[,] ranNums, int totalCredits, int bettingAmount)
         {
             int winModifier = SMALL_WINS;
             if (ranNums[1, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[1, 2])
@@ -219,7 +219,7 @@
             totalCredits += bettingAmount * winModifier;
             return totalCredits;
         }
-        public static int SevensCheck(int[,] ranNums, int totalCredits, int bettingAmount)
+        public static int CheckForSevens(int[,] ranNums, int totalCredits, int bettingAmount)
         {
             foreach (int i in ranNums)
             {
