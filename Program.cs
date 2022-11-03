@@ -25,18 +25,33 @@
             {
                 Console.WriteLine("available credits: " + totalCredits);
                 int winModifier = SMALL_WINS;
-
-                int bettingAmount = Input("How much would you like to bet?");
-                if (bettingAmount > totalCredits)
-                {
-                    Console.WriteLine("You have bet all your remainning credits");
-                    bettingAmount = totalCredits;
-                }
-
                 int linesBet = 0;
+                int bettingAmount = 0;
+
                 while (linesBet <= 0 || linesBet == 2 || linesBet == 4 || linesBet >= 6)
                 {
                     linesBet = Input("How many lines you like to bet?\n1, 3, or 5");
+                    if (linesBet > totalCredits)
+                    {
+                        Console.WriteLine("you don't have enough credits");
+                        Console.WriteLine("your total credits are " + totalCredits);
+                        linesBet = 0;
+                    }
+                }
+                while (bettingAmount <= 0 || bettingAmount * linesBet > totalCredits)
+                {
+                    bettingAmount = Input("How much would you like to bet?");
+                    if(bettingAmount * linesBet > totalCredits)
+                    {
+                        Console.WriteLine("you don't have enough credits");
+                        Console.WriteLine("your total credits are " + totalCredits);
+                        Console.WriteLine("With " + linesBet +" lines, your maximum bet is " + totalCredits/linesBet);
+                    }
+                }
+
+                if (bettingAmount * linesBet >= totalCredits)
+                {
+                    Console.WriteLine("You have bet all your remainning credits");
                 }
 
                 totalCredits -= bettingAmount * linesBet;
@@ -46,12 +61,12 @@
                 {
                     for (int j = 0; j < 3; j++)
                     {
-                        ranNums[i, j] = random.Next(0, 8); ;
+                        ranNums[i, j] = random.Next(0, 8);
                         Console.Write(ranNums[i, j] + " ");
                     }
                     Console.WriteLine();
                 }
-                
+
                 //single central line
                 if (linesBet == 1)
                 {
