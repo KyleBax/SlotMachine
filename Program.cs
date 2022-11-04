@@ -59,19 +59,15 @@
                 UIMethods.PrintRandomNumbers(ranNums, 1);
                 UIMethods.PrintRandomNumbers(ranNums, 2);
 
+                totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
                 switch (linesBet)
                 {
-                    case 1:
-                        totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                        break;
                     case 3:
                         totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                        totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
                         totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
                         break;
                     case 5:
                         totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                        totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
                         totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
                         totalCredits = LogicMethods.CheckDiagonalLines(ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
                         break;

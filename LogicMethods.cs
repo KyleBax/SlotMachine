@@ -89,7 +89,6 @@ namespace SlotMachine
             totalCredits += bettingAmount * winModifier;
             return totalCredits;
         }
-        //TODO remove UI parts from this method and have them in a method under UIMethods
         public static int[,] GetRandomNumbers(int[,] ranNums, Random random)
         {
             for (int i = 0; i < 3; i++)
