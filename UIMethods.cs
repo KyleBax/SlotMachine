@@ -72,6 +72,13 @@ namespace SlotMachine
         {
             Console.WriteLine(line);
         }
+        public static void PrintRandomNumbers(int[,] ranNums, int lineNr)
+        {
+            Console.Write(ranNums[lineNr, 0] + " ");
+            Console.Write(ranNums[lineNr, 1] + " ");
+            Console.Write(ranNums[lineNr, 2] + " ");
+            Console.WriteLine();
+        }
     }
 }
 

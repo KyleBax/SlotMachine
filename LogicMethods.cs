@@ -8,7 +8,7 @@ namespace SlotMachine
 {
     public static class LogicMethods
     {
-        //TODO add comments to improve readability of some Methods that are harder to understand at a glance
+        //checks the 3x3 grid across the diagonals for matching numbers next to each other
         public static int CheckDiagonalLines(int[,] ranNums, int totalCredits, int bettingAmount, int smallWins, int mediumWins, int bigWins, int winningNumber)
         {
             int winModifier = smallWins;
@@ -49,6 +49,7 @@ namespace SlotMachine
             }
             return totalCredits;
         }
+        //checks lines a line left to right for 7s and matching numbers next to each other
         public static int CheckLine(int lineNr, int[,] ranNums, int totalCredits, int bettingAmount, int smallWins, int mediumWins, int bigWins, int winningNumber)
         {
             int winModifier = smallWins;
@@ -88,6 +89,7 @@ namespace SlotMachine
             totalCredits += bettingAmount * winModifier;
             return totalCredits;
         }
+        //TODO remove UI parts from this method and have them in a method under UIMethods
         public static int[,] GetRandomNumbers(int[,] ranNums, Random random)
         {
             for (int i = 0; i < 3; i++)
@@ -95,10 +97,7 @@ namespace SlotMachine
                 for (int j = 0; j < 3; j++)
                 {
                     ranNums[i, j] = random.Next(0, 8);
-                    //TODO remove the UI parts and put them in another method
-                    Console.Write(ranNums[i, j] + " ");
                 }
-                Console.WriteLine();
             }
             return ranNums;
         }

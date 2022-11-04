@@ -55,6 +55,9 @@
                 int roundStartingCredits = totalCredits;
 
                 ranNums = LogicMethods.GetRandomNumbers(ranNums, random);
+                UIMethods.PrintRandomNumbers(ranNums, 0);
+                UIMethods.PrintRandomNumbers(ranNums, 1);
+                UIMethods.PrintRandomNumbers(ranNums, 2);
 
                 switch (linesBet)
                 {
