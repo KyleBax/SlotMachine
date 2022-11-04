@@ -23,7 +23,7 @@
 
             while (totalCredits > 0)
             {
-                Console.WriteLine("available credits: " + totalCredits);
+                UIMethods.PrintLineOfText("available credits: " + totalCredits);
                 int winModifier = SMALL_WINS;
                 int linesBet = 0;
                 int bettingAmount = 0;
@@ -43,23 +43,24 @@
                     if (bettingAmount * linesBet > totalCredits)
                     {
                         UIMethods.NotEnoughCredits(totalCredits);
-                        Console.WriteLine("With " + linesBet + " lines, your maximum bet is " + totalCredits / linesBet);
+                        UIMethods.PrintLineOfText("With " + linesBet + " lines, your maximum bet is " + totalCredits / linesBet);
                     }
                 }
 
                 if (bettingAmount * linesBet >= totalCredits)
                 {
-                    Console.WriteLine("You have bet all your remainning credits");
+                    UIMethods.PrintLineOfText("You have bet all your remainning credits");
                 }
 
                 totalCredits -= bettingAmount * linesBet;
                 int roundStartingCredits = totalCredits;
 
                 ranNums = LogicMethods.GetRandomNumbers(ranNums, random);
-
+                //make these into a switch statement instead of if statements
                 //single central line
                 if (linesBet == 1)
                 {
+                    //make a method to contain these
                     if (ranNums[1, 0] == WINNING_NUMBER)
                     {
                         totalCredits = LogicMethods.IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
@@ -94,15 +95,16 @@
                 }
                 if (totalCredits <= roundStartingCredits)
                 {
-                    Console.WriteLine("You Lose!!!");
+                    UIMethods.PrintLineOfText("You Lose!!!");
                 }
                 else
                 {
+                    //TODO make into a seperate method
                     int winningAmount = totalCredits - roundStartingCredits;
                     UIMethods.WinText(winningAmount, roundStartingCredits, totalCredits);
                 }
             }
-            Console.WriteLine("looks like you ran out of credits!!");
+            UIMethods.PrintLineOfText("looks like you ran out of credits!!");
         }
     }
 }

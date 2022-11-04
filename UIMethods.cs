@@ -68,6 +68,10 @@ namespace SlotMachine
             Console.WriteLine("you don't have enough credits");
             Console.WriteLine("your total credits are " + totalCredits);
         }
+        public static void PrintLineOfText(string line)
+        {
+            Console.WriteLine(line);
+        }
     }
 }
 
