@@ -54,6 +54,20 @@ namespace SlotMachine
             Console.WriteLine("2. Medium wins: Get three matching numbers in a line you're playing.\nMedium wins will give you your betting amount times 3");
             Console.WriteLine("3. Big wins: When you get three 7s in a line you're playing you will win big.\nBig wins will give you your betting amount times 7");
         }
+        public static void StartingText()
+        {
+            Console.WriteLine("Welcome to the lucky 7s");
+            Console.WriteLine("Would you like to read the rules? Y/N");
+            if (Console.ReadLine().ToLower() == "y")
+            {
+                HowToPlay();
+            }
+        }
+        public static void NotEnoughCredits(int totalCredits)
+        {
+            Console.WriteLine("you don't have enough credits");
+            Console.WriteLine("your total credits are " + totalCredits);
+        }
     }
 }
 

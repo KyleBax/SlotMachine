@@ -8,16 +8,17 @@ namespace SlotMachine
 {
     public static class LogicMethods
     {
-        public static int CheckDiagonalLines(int[,] ranNums, int totalCredits, int bettingAmount, int smallWins, int mediumWins , int bigWins, int winningNumber)
+        //TODO add comments to improve readability of some Methods that are harder to understand at a glance
+        public static int CheckDiagonalLines(int[,] ranNums, int totalCredits, int bettingAmount, int smallWins, int mediumWins, int bigWins, int winningNumber)
         {
             int winModifier = smallWins;
             if (ranNums[0, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[2, 2])
             {
-                totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
             }
             if (ranNums[2, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[0, 2])
             {
-                totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
             }
 
             if (ranNums[0, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[2, 2])
@@ -25,12 +26,12 @@ namespace SlotMachine
                 if (ranNums[0, 0] == winningNumber)
                 {
                     winModifier = bigWins;
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                 }
                 else
                 {
                     winModifier = mediumWins;
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                 }
             }
             if (ranNums[2, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[0, 2])
@@ -38,74 +39,34 @@ namespace SlotMachine
                 if (ranNums[2, 0] == winningNumber)
                 {
                     winModifier = bigWins;
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                 }
                 else
                 {
                     winModifier = mediumWins;
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                 }
             }
             return totalCredits;
         }
-        public static int CheckTopAndBottomLines(int[,] ranNums, int totalCredits, int bettingAmount, int smallWins, int mediumWins, int bigWins, int winningNumber)
+        public static int CheckLine(int lineNr, int[,] ranNums, int totalCredits, int bettingAmount, int smallWins, int mediumWins, int bigWins, int winningNumber)
         {
             int winModifier = smallWins;
-            if (ranNums[0, 0] == ranNums[0, 1] || ranNums[0, 1] == ranNums[0, 2])
+            if (ranNums[lineNr, 0] == ranNums[lineNr, 1] || ranNums[lineNr, 1] == ranNums[lineNr, 2])
             {
-                totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
             }
-            if (ranNums[2, 0] == ranNums[2, 1] || ranNums[2, 1] == ranNums[2, 2])
+            if (ranNums[lineNr, 0] == ranNums[lineNr, 1] && ranNums[lineNr, 1] == ranNums[lineNr, 2])
             {
-                totalCredits = Win(bettingAmount, totalCredits, winModifier);
-            }
-
-            if (ranNums[0, 0] == ranNums[0, 1] && ranNums[0, 1] == ranNums[0, 2])
-            {
-                if (ranNums[0, 0] == winningNumber)
+                if (ranNums[lineNr, 0] == winningNumber)
                 {
                     winModifier = bigWins;
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                 }
                 else
                 {
                     winModifier = mediumWins;
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                }
-            }
-            if (ranNums[2, 0] == ranNums[2, 1] && ranNums[2, 1] == ranNums[2, 2])
-            {
-                if (ranNums[2, 0] == winningNumber)
-                {
-                    winModifier = bigWins;
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                }
-                else
-                {
-                    winModifier = mediumWins;
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                }
-            }
-            return totalCredits;
-        }
-        public static int CheckMiddleLine(int[,] ranNums, int totalCredits, int bettingAmount, int smallWins, int mediumWins, int bigWins, int winningNumber)
-        {
-            int winModifier = smallWins;
-            if (ranNums[1, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[1, 2])
-            {
-                totalCredits = Win(bettingAmount, totalCredits, winModifier);
-            }
-            if (ranNums[1, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[1, 2])
-            {
-                if (ranNums[1, 0] == winningNumber)
-                {
-                    winModifier = bigWins;
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
-                }
-                else
-                {
-                    winModifier = mediumWins;
-                    totalCredits = Win(bettingAmount, totalCredits, winModifier);
+                    totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                 }
             }
             return totalCredits;
@@ -121,10 +82,25 @@ namespace SlotMachine
             }
             return totalCredits;
         }
-        public static int Win(int bettingAmount, int totalCredits, int winModifier)
+        public static int IncreaseTotalCredits(int bettingAmount, int totalCredits, int winModifier)
         {
             totalCredits += bettingAmount * winModifier;
             return totalCredits;
+        }
+
+        public static int[,] GetRandomNumbers(int[,] ranNums, Random random)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    ranNums[i, j] = random.Next(0, 8);
+                    //TODO remove the UI parts and put them in another method
+                    Console.Write(ranNums[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+            return ranNums;
         }
     }
 }

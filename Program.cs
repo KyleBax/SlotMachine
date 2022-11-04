@@ -18,13 +18,8 @@
 
             int totalCredits = STARTING_CREDITS;
             int[,] ranNums = new int[3, 3];
-
-            Console.WriteLine("Welcome to the lucky 7s");
-            Console.WriteLine("Would you like to read the rules? Y/N");
-            if (Console.ReadLine().ToLower() == "y")
-            {
-                UIMethods.HowToPlay();
-            }
+            //TODO make more methods to seperate UI and logic from the main program
+            UIMethods.StartingText();
 
             while (totalCredits > 0)
             {
@@ -38,8 +33,7 @@
                     linesBet = UIMethods.GetUserInput("How many lines you like to bet?\n1, 3, or 5");
                     if (linesBet > totalCredits)
                     {
-                        Console.WriteLine("you don't have enough credits");
-                        Console.WriteLine("your total credits are " + totalCredits);
+                        UIMethods.NotEnoughCredits(totalCredits);
                         linesBet = 0;
                     }
                 }
@@ -48,8 +42,7 @@
                     bettingAmount = UIMethods.GetUserInput("How much would you like to bet?");
                     if (bettingAmount * linesBet > totalCredits)
                     {
-                        Console.WriteLine("you don't have enough credits");
-                        Console.WriteLine("your total credits are " + totalCredits);
+                        UIMethods.NotEnoughCredits(totalCredits);
                         Console.WriteLine("With " + linesBet + " lines, your maximum bet is " + totalCredits / linesBet);
                     }
                 }
@@ -62,46 +55,41 @@
                 totalCredits -= bettingAmount * linesBet;
                 int roundStartingCredits = totalCredits;
 
-                for (int i = 0; i < 3; i++)
-                {
-                    for (int j = 0; j < 3; j++)
-                    {
-                        ranNums[i, j] = random.Next(0, 8);
-                        Console.Write(ranNums[i, j] + " ");
-                    }
-                    Console.WriteLine();
-                }
+                ranNums = LogicMethods.GetRandomNumbers(ranNums, random);
 
                 //single central line
                 if (linesBet == 1)
                 {
                     if (ranNums[1, 0] == WINNING_NUMBER)
                     {
-                        totalCredits = LogicMethods.Win(bettingAmount, totalCredits, winModifier);
+                        totalCredits = LogicMethods.IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                     }
                     if (ranNums[1, 1] == WINNING_NUMBER)
                     {
-                        totalCredits = LogicMethods.Win(bettingAmount, totalCredits, winModifier);
+                        totalCredits = LogicMethods.IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                     }
                     if (ranNums[1, 2] == WINNING_NUMBER)
                     {
-                        totalCredits = LogicMethods.Win(bettingAmount, totalCredits, winModifier);
+                        totalCredits = LogicMethods.IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                     }
-                    totalCredits = LogicMethods.CheckMiddleLine(ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                    totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
                 }
                 //3 lines going from left to right
                 if (linesBet == 3)
                 {
                     totalCredits = LogicMethods.CheckForSevens(ranNums, totalCredits, bettingAmount, SMALL_WINS, WINNING_NUMBER);
-                    totalCredits = LogicMethods.CheckMiddleLine(ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                    totalCredits = LogicMethods.CheckTopAndBottomLines(ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                    totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                    totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                    totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+
                 }
                 //3 lines left to right and diagonals
                 if (linesBet == 5)
                 {
                     totalCredits = LogicMethods.CheckForSevens(ranNums, totalCredits, bettingAmount, SMALL_WINS, WINNING_NUMBER);
-                    totalCredits = LogicMethods.CheckMiddleLine(ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                    totalCredits = LogicMethods.CheckTopAndBottomLines(ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                    totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                    totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                    totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
                     totalCredits = LogicMethods.CheckDiagonalLines(ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
                 }
                 if (totalCredits <= roundStartingCredits)
@@ -115,6 +103,6 @@
                 }
             }
             Console.WriteLine("looks like you ran out of credits!!");
-        } 
+        }
     }
 }
