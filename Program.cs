@@ -2,10 +2,10 @@
 {
     internal class Program
     {
-        static readonly int SMALL_WINS = 1;
-        static readonly int MEDIUM_WINS = 3;
-        static readonly int BIG_WINS = 7;
-        static readonly int WINNING_NUMBER = 7;
+        public static readonly int SMALL_WINS = 1;
+        public static readonly int MEDIUM_WINS = 3;
+        public static readonly int BIG_WINS = 7;
+        public static readonly int WINNING_NUMBER = 7;
         static readonly int STARTING_CREDITS = 100;
         static readonly bool TEST_MODE = true;
         static void Main(string[] args)
@@ -58,17 +58,17 @@
                 UIMethods.PrintRandomNumbers(ranNums, 1);
                 UIMethods.PrintRandomNumbers(ranNums, 2);
 
-                totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount);
                 switch (linesBet)
                 {
                     case 3:
-                        totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                        totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                        totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount);
+                        totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount);
                         break;
                     case 5:
-                        totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                        totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                        totalCredits = LogicMethods.CheckDiagonalLines(ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                        totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount);
+                        totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount);
+                        totalCredits = LogicMethods.CheckDiagonalLines(ranNums, totalCredits, bettingAmount);
                         break;
 
                 }

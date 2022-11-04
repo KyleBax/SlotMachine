@@ -9,9 +9,9 @@ namespace SlotMachine
     public static class LogicMethods
     {
         //checks the 3x3 grid across the diagonals for matching numbers next to each other
-        public static int CheckDiagonalLines(int[,] ranNums, int totalCredits, int bettingAmount, int smallWins, int mediumWins, int bigWins, int winningNumber)
+        public static int CheckDiagonalLines(int[,] ranNums, int totalCredits, int bettingAmount)
         {
-            int winModifier = smallWins;
+            int winModifier = Program.SMALL_WINS;
             if (ranNums[0, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[2, 2])
             {
                 totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
@@ -23,45 +23,45 @@ namespace SlotMachine
 
             if (ranNums[0, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[2, 2])
             {
-                if (ranNums[0, 0] == winningNumber)
+                if (ranNums[0, 0] == Program.WINNING_NUMBER)
                 {
-                    winModifier = bigWins;
+                    winModifier = Program.BIG_WINS;
                     totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                 }
                 else
                 {
-                    winModifier = mediumWins;
+                    winModifier = Program.MEDIUM_WINS;
                     totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                 }
             }
             if (ranNums[2, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[0, 2])
             {
-                if (ranNums[2, 0] == winningNumber)
+                if (ranNums[2, 0] == Program.WINNING_NUMBER)
                 {
-                    winModifier = bigWins;
+                    winModifier = Program.BIG_WINS;
                     totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                 }
                 else
                 {
-                    winModifier = mediumWins;
+                    winModifier = Program.MEDIUM_WINS;
                     totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                 }
             }
             return totalCredits;
         }
         //checks a line left to right for 7s and matching numbers next to each other
-        public static int CheckLine(int lineNr, int[,] ranNums, int totalCredits, int bettingAmount, int smallWins, int mediumWins, int bigWins, int winningNumber)
+        public static int CheckLine(int lineNr, int[,] ranNums, int totalCredits, int bettingAmount)
         {
-            int winModifier = smallWins;
-            if (ranNums[lineNr, 0] == winningNumber)
+            int winModifier = Program.SMALL_WINS;
+            if (ranNums[lineNr, 0] == Program.WINNING_NUMBER)
             {
                 totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
             }
-            if (ranNums[lineNr, 1] == winningNumber)
+            if (ranNums[lineNr, 1] == Program.WINNING_NUMBER)
             {
                 totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
             }
-            if (ranNums[lineNr, 2] == winningNumber)
+            if (ranNums[lineNr, 2] == Program.WINNING_NUMBER)
             {
                 totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
             }
@@ -72,14 +72,14 @@ namespace SlotMachine
             }
             if (ranNums[lineNr, 0] == ranNums[lineNr, 1] && ranNums[lineNr, 1] == ranNums[lineNr, 2])
             {
-                if (ranNums[lineNr, 0] == winningNumber)
+                if (ranNums[lineNr, 0] == Program.WINNING_NUMBER)
                 {
-                    winModifier = bigWins;
+                    winModifier = Program.BIG_WINS;
                     totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                 }
                 else
                 {
-                    winModifier = mediumWins;
+                    winModifier = Program.MEDIUM_WINS;
                     totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
                 }
             }
