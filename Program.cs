@@ -10,21 +10,20 @@
         static readonly bool TEST_MODE = true;
         static void Main(string[] args)
         {
+            int totalCredits = STARTING_CREDITS;
+            int[,] ranNums = new int[3, 3];
             Random random;
             if (TEST_MODE)
                 random = new(5);
             else
                 random = new();
 
-            int totalCredits = STARTING_CREDITS;
-            int[,] ranNums = new int[3, 3];
-            //TODO make more methods to seperate UI and logic from the main program
+
             UIMethods.StartingText();
 
             while (totalCredits > 0)
             {
                 UIMethods.PrintLineOfText("available credits: " + totalCredits);
-                int winModifier = SMALL_WINS;
                 int linesBet = 0;
                 int bettingAmount = 0;
 
@@ -52,46 +51,28 @@
                     UIMethods.PrintLineOfText("You have bet all your remainning credits");
                 }
 
-                totalCredits -= bettingAmount * linesBet;
+                totalCredits = LogicMethods.RemoveCostToBet(totalCredits, bettingAmount, linesBet);
                 int roundStartingCredits = totalCredits;
 
                 ranNums = LogicMethods.GetRandomNumbers(ranNums, random);
-                //make these into a switch statement instead of if statements
-                //single central line
-                if (linesBet == 1)
-                {
-                    //make a method to contain these
-                    if (ranNums[1, 0] == WINNING_NUMBER)
-                    {
-                        totalCredits = LogicMethods.IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
-                    }
-                    if (ranNums[1, 1] == WINNING_NUMBER)
-                    {
-                        totalCredits = LogicMethods.IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
-                    }
-                    if (ranNums[1, 2] == WINNING_NUMBER)
-                    {
-                        totalCredits = LogicMethods.IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
-                    }
-                    totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                }
-                //3 lines going from left to right
-                if (linesBet == 3)
-                {
-                    totalCredits = LogicMethods.CheckForSevens(ranNums, totalCredits, bettingAmount, SMALL_WINS, WINNING_NUMBER);
-                    totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                    totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                    totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
 
-                }
-                //3 lines left to right and diagonals
-                if (linesBet == 5)
+                switch (linesBet)
                 {
-                    totalCredits = LogicMethods.CheckForSevens(ranNums, totalCredits, bettingAmount, SMALL_WINS, WINNING_NUMBER);
-                    totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                    totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                    totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
-                    totalCredits = LogicMethods.CheckDiagonalLines(ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                    case 1:
+                        totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                        break;
+                    case 3:
+                        totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                        totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                        totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                        break;
+                    case 5:
+                        totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                        totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                        totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                        totalCredits = LogicMethods.CheckDiagonalLines(ranNums, totalCredits, bettingAmount, SMALL_WINS, MEDIUM_WINS, BIG_WINS, WINNING_NUMBER);
+                        break;
+
                 }
                 if (totalCredits <= roundStartingCredits)
                 {
@@ -99,8 +80,7 @@
                 }
                 else
                 {
-                    //TODO make into a seperate method
-                    int winningAmount = totalCredits - roundStartingCredits;
+                    int winningAmount = LogicMethods.CalculateWinnings(totalCredits, roundStartingCredits);
                     UIMethods.WinText(winningAmount, roundStartingCredits, totalCredits);
                 }
             }

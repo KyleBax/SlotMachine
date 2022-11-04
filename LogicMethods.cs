@@ -52,6 +52,18 @@ namespace SlotMachine
         public static int CheckLine(int lineNr, int[,] ranNums, int totalCredits, int bettingAmount, int smallWins, int mediumWins, int bigWins, int winningNumber)
         {
             int winModifier = smallWins;
+            if (ranNums[lineNr, 0] == winningNumber)
+            {
+                totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+            }
+            if (ranNums[lineNr, 1] == winningNumber)
+            {
+                totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+            }
+            if (ranNums[lineNr, 2] == winningNumber)
+            {
+                totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+            }
             if (ranNums[lineNr, 0] == ranNums[lineNr, 1] || ranNums[lineNr, 1] == ranNums[lineNr, 2])
             {
                 totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
@@ -71,23 +83,11 @@ namespace SlotMachine
             }
             return totalCredits;
         }
-        public static int CheckForSevens(int[,] ranNums, int totalCredits, int bettingAmount, int smallWins, int winningNumber)
-        {
-            foreach (int i in ranNums)
-            {
-                if (i == winningNumber)
-                {
-                    totalCredits += bettingAmount * smallWins;
-                }
-            }
-            return totalCredits;
-        }
         public static int IncreaseTotalCredits(int bettingAmount, int totalCredits, int winModifier)
         {
             totalCredits += bettingAmount * winModifier;
             return totalCredits;
         }
-
         public static int[,] GetRandomNumbers(int[,] ranNums, Random random)
         {
             for (int i = 0; i < 3; i++)
@@ -101,6 +101,15 @@ namespace SlotMachine
                 Console.WriteLine();
             }
             return ranNums;
+        }
+        public static int CalculateWinnings(int totalCredits, int roundStartingCredits)
+        {
+            int winningAmount = totalCredits - roundStartingCredits;
+            return winningAmount;
+        }
+        public static int RemoveCostToBet(int totalCredits, int bettingAmount, int linesBet)
+        {
+            return totalCredits -= bettingAmount * linesBet;
         }
     }
 }
