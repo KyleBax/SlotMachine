@@ -49,7 +49,7 @@ namespace SlotMachine
             }
             return totalCredits;
         }
-        //checks lines a line left to right for 7s and matching numbers next to each other
+        //checks a line left to right for 7s and matching numbers next to each other
         public static int CheckLine(int lineNr, int[,] ranNums, int totalCredits, int bettingAmount, int smallWins, int mediumWins, int bigWins, int winningNumber)
         {
             int winModifier = smallWins;
