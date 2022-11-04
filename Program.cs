@@ -18,7 +18,6 @@
             else
                 random = new();
 
-
             UIMethods.StartingText();
 
             while (totalCredits > 0)
@@ -73,6 +72,7 @@
                         break;
 
                 }
+
                 if (totalCredits <= roundStartingCredits)
                 {
                     UIMethods.PrintLineOfText("You Lose!!!");

@@ -65,6 +65,7 @@ namespace SlotMachine
             {
                 totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
             }
+
             if (ranNums[lineNr, 0] == ranNums[lineNr, 1] || ranNums[lineNr, 1] == ranNums[lineNr, 2])
             {
                 totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);

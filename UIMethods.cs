@@ -49,7 +49,8 @@ namespace SlotMachine
             Console.WriteLine("Step 3: WIN BIG!! (hopefully)");
             Console.WriteLine("The ways you win:");
             Console.WriteLine("There are three win types. small, medium and large");
-            Console.WriteLine("1. Small wins: Get two matching numbers next to each other in a line you're playing,\nand every 7 in a line you're playing will give you a small win");
+            Console.WriteLine("1. Small wins: Get two matching numbers next to each other in a line you're playing,\n" +
+                "and every 7 in a line you're playing will give you a small win");
             Console.WriteLine("Each small win will give you your betting amount back");
             Console.WriteLine("2. Medium wins: Get three matching numbers in a line you're playing.\nMedium wins will give you your betting amount times 3");
             Console.WriteLine("3. Big wins: When you get three 7s in a line you're playing you will win big.\nBig wins will give you your betting amount times 7");
