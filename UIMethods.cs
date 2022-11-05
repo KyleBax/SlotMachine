@@ -49,9 +49,9 @@ There are three win types. small, medium and large
 and every {Program.WINNING_NUMBER} in a line you're playing will give you a small win
 Each small win will give you your betting amount back
 2. Medium wins: Get three matching numbers in a line you're playing.
-Medium wins will give you your betting amount times 3
+Medium wins will give you your betting amount times {Program.MEDIUM_WINS}
 3. Big wins: When you get three {Program.WINNING_NUMBER}s in a line you're playing you will win big.
-Big wins will give you your betting amount times 7");
+Big wins will give you your betting amount times {Program.BIG_WINS}");
         }
         public static void StartingText()
         {
@@ -63,7 +63,7 @@ Big wins will give you your betting amount times 7");
         }
         public static void NotEnoughCredits(int totalCredits)
         {
-            Console.WriteLine("you don't have enough credits\nyour total credits are " + totalCredits);
+            Console.WriteLine($"you don't have enough credits\nyour total credits are {totalCredits}");
         }
         public static void PrintLineOfText(string line)
         {
