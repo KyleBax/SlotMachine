@@ -104,5 +104,23 @@
         {
             return totalCredits -= bettingAmount * linesBet;
         }
+        public static int WinConditions(int[,] ranNums, int totalCredits, int bettingAmount, int linesBet)
+        {
+            totalCredits = CheckLine(1, ranNums, totalCredits, bettingAmount);
+            switch (linesBet)
+            {
+                case 3:
+                    totalCredits = CheckLine(0, ranNums, totalCredits, bettingAmount);
+                    totalCredits = CheckLine(2, ranNums, totalCredits, bettingAmount);
+                    break;
+                case 5:
+                    totalCredits = CheckLine(0, ranNums, totalCredits, bettingAmount);
+                    totalCredits = CheckLine(2, ranNums, totalCredits, bettingAmount);
+                    totalCredits = CheckDiagonalLines(ranNums, totalCredits, bettingAmount);
+                    break;
+
+            }
+            return totalCredits;
+        }
     }
 }

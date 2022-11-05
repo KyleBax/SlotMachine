@@ -17,41 +17,18 @@
                 random = new(5);
             else
                 random = new();
-
             UIMethods.StartingText();
-
             while (totalCredits > 0)
             {
-                UIMethods.PrintLineOfText("available credits: " + totalCredits);
+                UIMethods.PrintLineOfText($"available credits: {totalCredits} ");
                 int linesBet = UIMethods.GetLinesBet(totalCredits);
                 int bettingAmount = UIMethods.GetBettingAmount(totalCredits, linesBet);
-
                 UIMethods.AllIn(bettingAmount, linesBet, totalCredits);
-
                 totalCredits = LogicMethods.RemoveCostToBet(totalCredits, bettingAmount, linesBet);
                 int roundStartingCredits = totalCredits;
-
                 ranNums = LogicMethods.GetRandomNumbers(ranNums, random);
-                //think of a way to print it all in one go instead of each one seperately
-                UIMethods.PrintRandomNumbers(ranNums, 0);
-                UIMethods.PrintRandomNumbers(ranNums, 1);
-                UIMethods.PrintRandomNumbers(ranNums, 2);
-
-                totalCredits = LogicMethods.CheckLine(1, ranNums, totalCredits, bettingAmount);
-                switch (linesBet)
-                {
-                    case 3:
-                        totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount);
-                        totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount);
-                        break;
-                    case 5:
-                        totalCredits = LogicMethods.CheckLine(0, ranNums, totalCredits, bettingAmount);
-                        totalCredits = LogicMethods.CheckLine(2, ranNums, totalCredits, bettingAmount);
-                        totalCredits = LogicMethods.CheckDiagonalLines(ranNums, totalCredits, bettingAmount);
-                        break;
-
-                }
-
+                UIMethods.PrintRandomNumbers(ranNums);
+                totalCredits = LogicMethods.WinConditions(ranNums, totalCredits, bettingAmount, linesBet);
                 if (totalCredits <= roundStartingCredits)
                 {
                     UIMethods.PrintLineOfText("You Lose!!!");

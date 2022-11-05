@@ -5,9 +5,9 @@
         public static void WinText(int winningAmount, int roundStartingCredits, int totalCredits)
         {
             Console.WriteLine(@$"Winner!!!!
-            You win {winningAmount} credits
-            {roundStartingCredits}
-            You have {totalCredits} credits");
+You win {winningAmount} credits
+{roundStartingCredits}
+You have {totalCredits} credits");
         }
         public static int GetUserInput(string line)
         {
@@ -69,12 +69,16 @@ Big wins will give you your betting amount times {Program.BIG_WINS}");
         {
             Console.WriteLine(line);
         }
-        public static void PrintRandomNumbers(int[,] ranNums, int lineNr)
+        public static void PrintRandomNumbers(int[,] ranNums)
         {
-            Console.Write(ranNums[lineNr, 0] + " ");
-            Console.Write(ranNums[lineNr, 1] + " ");
-            Console.Write(ranNums[lineNr, 2] + " ");
-            Console.WriteLine();
+            for(int i = 0; i < 3; i++)
+            {
+                for(int j = 0; j < 3; j++)
+                {
+                    Console.Write($"{ranNums[i, j]} ");
+                }
+                Console.WriteLine();
+            }
         }
         public static int GetLinesBet(int totalCredits)
         {
@@ -99,7 +103,7 @@ Big wins will give you your betting amount times {Program.BIG_WINS}");
                 if (bettingAmount * linesBet > totalCredits)
                 {
                     UIMethods.NotEnoughCredits(totalCredits);
-                    UIMethods.PrintLineOfText("With " + linesBet + " lines, your maximum bet is " + totalCredits / linesBet);
+                    Console.WriteLine($"With {linesBet} lines, your maximum bet is {totalCredits / linesBet}");
                 }
             }
             return bettingAmount;
