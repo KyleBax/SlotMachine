@@ -2,34 +2,13 @@
 {
     public static class UIMethods
     {
-        public static void WinText(int winningAmount, int roundStartingCredits, int totalCredits)
+        public static void StartingText()
         {
-            Console.WriteLine(@$"Winner!!!!
-You win {winningAmount} credits
-{roundStartingCredits}
-You have {totalCredits} credits");
-        }
-        public static int GetUserInput(string line)
-        {
-            int number = 0;
-            while (number <= 0)
+            Console.WriteLine($"Welcome to the lucky {Program.WINNING_NUMBER}s\nWould you like to read the rules? Y/N");
+            if (Console.ReadLine().ToLower() == "y")
             {
-                Console.WriteLine(line);
-                string input = Console.ReadLine();
-                if (String.IsNullOrEmpty(input))
-                {
-                    continue;
-                }
-                if (input.All(Char.IsNumber))
-                {
-                    number = Convert.ToInt32(input);
-                }
-                else
-                {
-                    continue;
-                }
+                HowToPlay();
             }
-            return number;
         }
         public static void HowToPlay()
         {
@@ -53,42 +32,15 @@ Medium wins will give you your betting amount times {Program.MEDIUM_WINS}
 3. Big wins: When you get three {Program.WINNING_NUMBER}s in a line you're playing you will win big.
 Big wins will give you your betting amount times {Program.BIG_WINS}");
         }
-        public static void StartingText()
-        {
-            Console.WriteLine($"Welcome to the lucky {Program.WINNING_NUMBER}s\nWould you like to read the rules? Y/N");
-            if (Console.ReadLine().ToLower() == "y")
-            {
-                HowToPlay();
-            }
-        }
-        public static void NotEnoughCredits(int totalCredits)
-        {
-            Console.WriteLine($"you don't have enough credits\nyour total credits are {totalCredits}");
-        }
-        public static void PrintLineOfText(string line)
-        {
-            Console.WriteLine(line);
-        }
-        public static void PrintRandomNumbers(int[,] ranNums)
-        {
-            for(int i = 0; i < 3; i++)
-            {
-                for(int j = 0; j < 3; j++)
-                {
-                    Console.Write($"{ranNums[i, j]} ");
-                }
-                Console.WriteLine();
-            }
-        }
         public static int GetLinesBet(int totalCredits)
         {
             int linesBet = 0;
             while (linesBet <= 0 || linesBet == 2 || linesBet == 4 || linesBet >= 6)
             {
-                linesBet = UIMethods.GetUserInput("How many lines you like to bet?\n1, 3, or 5");
+                linesBet = GetUserInput("How many lines you like to bet?\n1, 3, or 5");
                 if (linesBet > totalCredits)
                 {
-                    UIMethods.NotEnoughCredits(totalCredits);
+                    NotEnoughCredits(totalCredits);
                     linesBet = 0;
                 }
             }
@@ -99,14 +51,40 @@ Big wins will give you your betting amount times {Program.BIG_WINS}");
             int bettingAmount = 0;
             while (bettingAmount <= 0 || bettingAmount * linesBet > totalCredits)
             {
-                bettingAmount = UIMethods.GetUserInput("How much would you like to bet?");
+                bettingAmount = GetUserInput("How much would you like to bet?");
                 if (bettingAmount * linesBet > totalCredits)
                 {
-                    UIMethods.NotEnoughCredits(totalCredits);
+                    NotEnoughCredits(totalCredits);
                     Console.WriteLine($"With {linesBet} lines, your maximum bet is {totalCredits / linesBet}");
                 }
             }
             return bettingAmount;
+        }
+        public static int GetUserInput(string line)
+        {
+            int number = 0;
+            while (number <= 0)
+            {
+                Console.WriteLine(line);
+                string input = Console.ReadLine();
+                if (String.IsNullOrEmpty(input))
+                {
+                    continue;
+                }
+                if (input.All(Char.IsNumber))
+                {
+                    number = Convert.ToInt32(input);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            return number;
+        }
+        public static void NotEnoughCredits(int totalCredits)
+        {
+            Console.WriteLine($"you don't have enough credits\nyour total credits are {totalCredits}");
         }
         public static void AllIn(int bettingAmount, int linesBet, int totalCredits)
         {
@@ -115,6 +93,29 @@ Big wins will give you your betting amount times {Program.BIG_WINS}");
                 Console.WriteLine("You have bet all your remainning credits");
             }
         }
+        public static void PrintRandomNumbers(int[,] ranNums)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Console.Write($"{ranNums[i, j]} ");
+                }
+                Console.WriteLine();
+            }
+        }
+        public static void WinText(int winningAmount, int roundStartingCredits, int totalCredits)
+        {
+            Console.WriteLine(@$"Winner!!!!
+You win {winningAmount} credits
+{roundStartingCredits}
+You have {totalCredits} credits");
+        }
+        public static void PrintLineOfText(string line)
+        {
+            Console.WriteLine(line);
+        }
+
     }
 }
 
