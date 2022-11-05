@@ -23,37 +23,16 @@
             while (totalCredits > 0)
             {
                 UIMethods.PrintLineOfText("available credits: " + totalCredits);
-                int linesBet = 0;
-                int bettingAmount = 0;
+                int linesBet = UIMethods.GetLinesBet(totalCredits);
+                int bettingAmount = UIMethods.GetBettingAmount(totalCredits, linesBet);
 
-                while (linesBet <= 0 || linesBet == 2 || linesBet == 4 || linesBet >= 6)
-                {
-                    linesBet = UIMethods.GetUserInput("How many lines you like to bet?\n1, 3, or 5");
-                    if (linesBet > totalCredits)
-                    {
-                        UIMethods.NotEnoughCredits(totalCredits);
-                        linesBet = 0;
-                    }
-                }
-                while (bettingAmount <= 0 || bettingAmount * linesBet > totalCredits)
-                {
-                    bettingAmount = UIMethods.GetUserInput("How much would you like to bet?");
-                    if (bettingAmount * linesBet > totalCredits)
-                    {
-                        UIMethods.NotEnoughCredits(totalCredits);
-                        UIMethods.PrintLineOfText("With " + linesBet + " lines, your maximum bet is " + totalCredits / linesBet);
-                    }
-                }
-
-                if (bettingAmount * linesBet >= totalCredits)
-                {
-                    UIMethods.PrintLineOfText("You have bet all your remainning credits");
-                }
+                UIMethods.AllIn(bettingAmount, linesBet, totalCredits);
 
                 totalCredits = LogicMethods.RemoveCostToBet(totalCredits, bettingAmount, linesBet);
                 int roundStartingCredits = totalCredits;
 
                 ranNums = LogicMethods.GetRandomNumbers(ranNums, random);
+                //think of a way to print it all in one go instead of each one seperately
                 UIMethods.PrintRandomNumbers(ranNums, 0);
                 UIMethods.PrintRandomNumbers(ranNums, 1);
                 UIMethods.PrintRandomNumbers(ranNums, 2);

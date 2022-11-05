@@ -76,6 +76,41 @@ Big wins will give you your betting amount times {Program.BIG_WINS}");
             Console.Write(ranNums[lineNr, 2] + " ");
             Console.WriteLine();
         }
+        public static int GetLinesBet(int totalCredits)
+        {
+            int linesBet = 0;
+            while (linesBet <= 0 || linesBet == 2 || linesBet == 4 || linesBet >= 6)
+            {
+                linesBet = UIMethods.GetUserInput("How many lines you like to bet?\n1, 3, or 5");
+                if (linesBet > totalCredits)
+                {
+                    UIMethods.NotEnoughCredits(totalCredits);
+                    linesBet = 0;
+                }
+            }
+            return linesBet;
+        }
+        public static int GetBettingAmount(int totalCredits, int linesBet)
+        {
+            int bettingAmount = 0;
+            while (bettingAmount <= 0 || bettingAmount * linesBet > totalCredits)
+            {
+                bettingAmount = UIMethods.GetUserInput("How much would you like to bet?");
+                if (bettingAmount * linesBet > totalCredits)
+                {
+                    UIMethods.NotEnoughCredits(totalCredits);
+                    UIMethods.PrintLineOfText("With " + linesBet + " lines, your maximum bet is " + totalCredits / linesBet);
+                }
+            }
+            return bettingAmount;
+        }
+        public static void AllIn(int bettingAmount, int linesBet, int totalCredits)
+        {
+            if (bettingAmount * linesBet >= totalCredits)
+            {
+                Console.WriteLine("You have bet all your remainning credits");
+            }
+        }
     }
 }
 

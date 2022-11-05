@@ -8,11 +8,11 @@
             int winModifier = Program.SMALL_WINS;
             if (ranNums[0, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[2, 2])
             {
-                totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+                totalCredits += bettingAmount * winModifier;
             }
             if (ranNums[2, 0] == ranNums[1, 1] || ranNums[1, 1] == ranNums[0, 2])
             {
-                totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+                totalCredits += bettingAmount * winModifier;
             }
 
             if (ranNums[0, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[2, 2])
@@ -20,12 +20,12 @@
                 if (ranNums[0, 0] == Program.WINNING_NUMBER)
                 {
                     winModifier = Program.BIG_WINS;
-                    totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+                    totalCredits += bettingAmount * winModifier;
                 }
                 else
                 {
                     winModifier = Program.MEDIUM_WINS;
-                    totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+                    totalCredits += bettingAmount * winModifier;
                 }
             }
             if (ranNums[2, 0] == ranNums[1, 1] && ranNums[1, 1] == ranNums[0, 2])
@@ -33,12 +33,12 @@
                 if (ranNums[2, 0] == Program.WINNING_NUMBER)
                 {
                     winModifier = Program.BIG_WINS;
-                    totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+                    totalCredits += bettingAmount * winModifier;
                 }
                 else
                 {
                     winModifier = Program.MEDIUM_WINS;
-                    totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+                    totalCredits += bettingAmount * winModifier;
                 }
             }
             return totalCredits;
@@ -49,32 +49,32 @@
             int winModifier = Program.SMALL_WINS;
             if (ranNums[lineNr, 0] == Program.WINNING_NUMBER)
             {
-                totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+                totalCredits += bettingAmount * winModifier;
             }
             if (ranNums[lineNr, 1] == Program.WINNING_NUMBER)
             {
-                totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+                totalCredits += bettingAmount * winModifier;
             }
             if (ranNums[lineNr, 2] == Program.WINNING_NUMBER)
             {
-                totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+                totalCredits += bettingAmount * winModifier;
             }
 
             if (ranNums[lineNr, 0] == ranNums[lineNr, 1] || ranNums[lineNr, 1] == ranNums[lineNr, 2])
             {
-                totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+                totalCredits += bettingAmount * winModifier;
             }
             if (ranNums[lineNr, 0] == ranNums[lineNr, 1] && ranNums[lineNr, 1] == ranNums[lineNr, 2])
             {
                 if (ranNums[lineNr, 0] == Program.WINNING_NUMBER)
                 {
                     winModifier = Program.BIG_WINS;
-                    totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+                    totalCredits += bettingAmount * winModifier;
                 }
                 else
                 {
                     winModifier = Program.MEDIUM_WINS;
-                    totalCredits = IncreaseTotalCredits(bettingAmount, totalCredits, winModifier);
+                    totalCredits += bettingAmount * winModifier;
                 }
             }
             return totalCredits;
