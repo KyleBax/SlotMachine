@@ -20,7 +20,7 @@
             UIMethods.StartingText();
             while (totalCredits > 0)
             {
-                UIMethods.PrintLineOfText($"available credits: {totalCredits}");
+                UIMethods.PrintAvailableCredits(totalCredits);
                 int linesBet = UIMethods.GetLinesBet(totalCredits);
                 int bettingAmount = UIMethods.GetBettingAmount(totalCredits, linesBet);
                 UIMethods.AllIn(bettingAmount, linesBet, totalCredits);
@@ -35,7 +35,7 @@
 
                 if (totalCredits <= roundStartingCredits)
                 {
-                    UIMethods.PrintLineOfText("You Lose!!!");
+                    UIMethods.Printloseoutcome("You Lose!!!");
                 }
                 else
                 {
@@ -43,7 +43,7 @@
                     UIMethods.WinText(winningAmount, roundStartingCredits, totalCredits);
                 }
             }
-            UIMethods.PrintLineOfText("looks like you ran out of credits!!");
+            UIMethods.Printloseoutcome("looks like you ran out of credits!!");
         }
     }
 }
