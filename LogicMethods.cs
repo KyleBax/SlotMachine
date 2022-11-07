@@ -18,14 +18,14 @@
             }
             return ranNums;
         }
-        public static int WinConditions(int[,] ranNums, int totalCredits, int bettingAmount, int linesBet)
+        public static int CalculateWin(int[,] ranNums, int totalCredits, int bettingAmount, int linesBet)
         {
             totalCredits = CheckLine(1, ranNums, totalCredits, bettingAmount);
             if (linesBet > 2)
             {
                 totalCredits = CheckLine(0, ranNums, totalCredits, bettingAmount);
                 totalCredits = CheckLine(2, ranNums, totalCredits, bettingAmount);
-                if (linesBet < 3)
+                if (linesBet > 3)
                 {
                     totalCredits = CheckDiagonalLines(ranNums, totalCredits, bettingAmount);
                 }

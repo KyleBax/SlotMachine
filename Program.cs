@@ -23,7 +23,6 @@
                 UIMethods.PrintAvailableCredits(totalCredits);
                 int linesBet = UIMethods.GetLinesBet(totalCredits);
                 int bettingAmount = UIMethods.GetBettingAmount(totalCredits, linesBet);
-                UIMethods.AllIn(bettingAmount, linesBet, totalCredits);
 
                 totalCredits = LogicMethods.RemoveCostToBet(totalCredits, bettingAmount, linesBet);
                 int roundStartingCredits = totalCredits;
@@ -31,7 +30,7 @@
                 ranNums = LogicMethods.GetRandomNumbers(ranNums, random);
                 UIMethods.PrintRandomNumbers(ranNums);
 
-                totalCredits = LogicMethods.WinConditions(ranNums, totalCredits, bettingAmount, linesBet);
+                totalCredits = LogicMethods.CalculateWin(ranNums, totalCredits, bettingAmount, linesBet);
 
                 if (totalCredits <= roundStartingCredits)
                 {

@@ -58,6 +58,10 @@ Big wins will give you your betting amount times {Program.BIG_WINS}");
                     Console.WriteLine($"With {linesBet} lines, your maximum bet is {totalCredits / linesBet}");
                 }
             }
+            if (bettingAmount * linesBet >= totalCredits)
+            {
+                Console.WriteLine("You have bet all your remainning credits");
+            }
             return bettingAmount;
         }
         public static int GetUserInput(string line)
@@ -85,13 +89,6 @@ Big wins will give you your betting amount times {Program.BIG_WINS}");
         public static void NotEnoughCredits(int totalCredits)
         {
             Console.WriteLine($"you don't have enough credits\nyour total credits are {totalCredits}");
-        }
-        public static void AllIn(int bettingAmount, int linesBet, int totalCredits)
-        {
-            if (bettingAmount * linesBet >= totalCredits)
-            {
-                Console.WriteLine("You have bet all your remainning credits");
-            }
         }
         public static void PrintRandomNumbers(int[,] ranNums)
         {
