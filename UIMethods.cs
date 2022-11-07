@@ -35,7 +35,7 @@ Big wins will give you your betting amount times {Program.BIG_WINS}");
         public static int GetLinesBet(int totalCredits)
         {
             int linesBet = 0;
-            while (linesBet <= 0 || linesBet == 2 || linesBet == 4 || linesBet >= 6)
+            while (linesBet <= 0 || linesBet % 2 == 0 || linesBet >= 6)
             {
                 linesBet = GetUserInput("How many lines you like to bet?\n1, 3, or 5");
                 if (linesBet > totalCredits)
