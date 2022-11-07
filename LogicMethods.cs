@@ -21,7 +21,7 @@
         public static int CalculateWin(int[,] ranNums, int totalCredits, int bettingAmount, int linesBet)
         {
             totalCredits = CheckLine(1, ranNums, totalCredits, bettingAmount);
-            if (linesBet > 2)
+            if (linesBet > 1)
             {
                 totalCredits = CheckLine(0, ranNums, totalCredits, bettingAmount);
                 totalCredits = CheckLine(2, ranNums, totalCredits, bettingAmount);
@@ -35,17 +35,12 @@
         //checks a line left to right for 7s and matching numbers next to each other
         public static int CheckLine(int lineNr, int[,] ranNums, int totalCredits, int bettingAmount)
         {
-            if (ranNums[lineNr, 0] == Program.WINNING_NUMBER)
+            for (int i =0; i < 3; i++)
             {
-                totalCredits += bettingAmount * Program.SMALL_WINS;
-            }
-            if (ranNums[lineNr, 1] == Program.WINNING_NUMBER)
-            {
-                totalCredits += bettingAmount * Program.SMALL_WINS;
-            }
-            if (ranNums[lineNr, 2] == Program.WINNING_NUMBER)
-            {
-                totalCredits += bettingAmount * Program.SMALL_WINS;
+                if (ranNums[lineNr, i] == Program.WINNING_NUMBER)
+                {
+                    totalCredits += bettingAmount * Program.SMALL_WINS;
+                }
             }
 
             if (ranNums[lineNr, 0] == ranNums[lineNr, 1] || ranNums[lineNr, 1] == ranNums[lineNr, 2])
