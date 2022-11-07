@@ -111,7 +111,7 @@ You win {winningAmount} credits
 {roundStartingCredits}
 You have {totalCredits} credits");
         }
-        public static void Printloseoutcome(string lose)
+        public static void PrintLoseOutcome(string lose)
         {
             Console.WriteLine(lose);
         }

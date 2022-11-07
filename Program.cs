@@ -35,7 +35,7 @@
 
                 if (totalCredits <= roundStartingCredits)
                 {
-                    UIMethods.Printloseoutcome("You Lose!!!");
+                    UIMethods.PrintLoseOutcome("You Lose!!!");
                 }
                 else
                 {
@@ -43,7 +43,7 @@
                     UIMethods.WinText(winningAmount, roundStartingCredits, totalCredits);
                 }
             }
-            UIMethods.Printloseoutcome("looks like you ran out of credits!!");
+            UIMethods.PrintLoseOutcome("looks like you ran out of credits!!");
         }
     }
 }
