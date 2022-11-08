@@ -7,7 +7,7 @@
         public static readonly int BIG_WINS = 7;
         public static readonly int WINNING_NUMBER = 7;
         static readonly int STARTING_CREDITS = 100;
-        static readonly bool TEST_MODE = true;
+        static readonly bool TEST_MODE = false;
         static void Main(string[] args)
         {
             int totalCredits = STARTING_CREDITS;
